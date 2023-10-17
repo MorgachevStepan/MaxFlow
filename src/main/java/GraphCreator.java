@@ -1,7 +1,6 @@
 import org.jgrapht.Graph;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.DefaultWeightedEdge;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,12 +23,25 @@ public class GraphCreator {
     private final String X9 = "X9";
     private final String X10 = "X10";
 
-    public GraphCreator() {
+    private final Serialization serialization;
+
+    public GraphCreator(Serialization serialization) {
+        this.serialization = serialization;
     }
 
     public void CreateGraph(Graph<String, MyWeightedEdge> graph) {
-        CreateVertex(graph);
-        CreateEdge(graph);
+        if(isExist()){
+            graph = serialization.Deserialize();
+        } else {
+            CreateVertex(graph);
+            CreateEdge(graph);
+            serialization.Serialize(graph);
+        }
+    }
+
+    private boolean isExist() {
+        File file = new File("graph.txt");
+        return file.exists();
     }
 
     private void CreateEdge(Graph<String, MyWeightedEdge> graph) {

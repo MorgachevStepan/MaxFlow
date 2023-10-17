@@ -1,38 +1,20 @@
-import com.mxgraph.layout.mxCircleLayout;
-import com.mxgraph.layout.mxIGraphLayout;
-import com.mxgraph.util.mxCellRenderer;
-import lpsolve.*;
 import org.jgrapht.Graph;
-import org.jgrapht.ext.JGraphXAdapter;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import org.jgrapht.graph.SimpleWeightedGraph;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Stepan Morgachev
  * @date 02.10.2023 11:47
  */
 public class Main {
-    public static void main(String[] args) throws IOException {
-        Graph<String, MyWeightedEdge> graph = new SimpleWeightedGraph<>(MyWeightedEdge.class);
-        GraphCreator graphCreator = new GraphCreator();
+
+    public static void main(String[] args){
+        Graph<String, MyWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(MyWeightedEdge.class);
+        Render render = new Render();
+        Serialization serialization = new Serialization();
+        GraphCreator graphCreator = new GraphCreator(serialization);
         graphCreator.CreateGraph(graph);
 
-        JGraphXAdapter graphXAdapter = new JGraphXAdapter(graph);
-        mxIGraphLayout layout = new mxCircleLayout(graphXAdapter);
-        layout.execute(graphXAdapter.getDefaultParent());
-
-        BufferedImage image = mxCellRenderer.createBufferedImage(graphXAdapter, null, 2, Color.WHITE, true, null);
-        File imgFile = new File("graph.png");
-        ImageIO.write(image, "PNG", imgFile);
 
 
         /*try {
