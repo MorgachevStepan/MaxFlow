@@ -1,6 +1,5 @@
 import org.jgrapht.Graph;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
-import org.jgrapht.graph.SimpleWeightedGraph;
 
 /**
  * @author Stepan Morgachev
@@ -12,10 +11,8 @@ public class Main {
         Graph<String, MyWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(MyWeightedEdge.class);
         Render render = new Render();
         Serialization serialization = new Serialization();
-        GraphCreator graphCreator = new GraphCreator(serialization);
+        GraphCreator graphCreator = new GraphCreator(serialization, render);
         graphCreator.CreateGraph(graph);
-
-
 
         /*try {
             LpSolve solver = LpSolve.makeLp(0, 4);

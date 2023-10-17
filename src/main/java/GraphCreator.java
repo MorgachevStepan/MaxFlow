@@ -24,9 +24,11 @@ public class GraphCreator {
     private final String X10 = "X10";
 
     private final Serialization serialization;
+    private final Render render;
 
-    public GraphCreator(Serialization serialization) {
+    public GraphCreator(Serialization serialization, Render render) {
         this.serialization = serialization;
+        this.render = render;
     }
 
     public void CreateGraph(Graph<String, MyWeightedEdge> graph) {
@@ -36,6 +38,7 @@ public class GraphCreator {
             CreateVertex(graph);
             CreateEdge(graph);
             serialization.Serialize(graph);
+            render.RenderGraph(graph);
         }
     }
 

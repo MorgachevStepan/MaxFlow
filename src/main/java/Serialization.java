@@ -8,7 +8,7 @@ import java.io.*;
  */
 public class Serialization {
     public void Serialize(Graph<String, MyWeightedEdge> graph){
-        FileOutputStream outputStream = null;
+        FileOutputStream outputStream;
         try{
             outputStream = new FileOutputStream("graph.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -31,6 +31,7 @@ public class Serialization {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
         return graph;
     }
 }
