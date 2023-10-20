@@ -1,5 +1,8 @@
 import org.jgrapht.Graph;
-import org.jgrapht.graph.SimpleDirectedWeightedGraph;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * @author Stepan Morgachev
@@ -8,32 +11,29 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 public class Main {
 
     public static void main(String[] args){
-        Graph<String, MyWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(MyWeightedEdge.class);
+        Graph<String, MyWeightedEdge> graph;
         Render render = new Render();
         Serialization serialization = new Serialization();
         GraphCreator graphCreator = new GraphCreator(serialization, render);
-        graphCreator.CreateGraph(graph);
+        graph = graphCreator.CreateGraph();
 
-        /*try {
-            LpSolve solver = LpSolve.makeLp(0, 4);
 
-            solver.strAddConstraint("3 2 2 1", LpSolve.LE, 4);
-            solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("graph.lp"))) {
+            writer.write("max: ");
+            for (MyWeightedEdge edge : graph.edgesOf(GraphCreator.SOURCE)) {
+                writer.write("+" + edge.toString() + "X_" + GraphCreator.SOURCE + "_" + graph.getEdgeTarget(edge));
+            }
+            writer.write(";\n\n");
 
-            solver.strSetObjFn("2 3 -2 3");
-
-            solver.solve();
-
-            System.out.println("Value of objective function: " + solver.getObjective());
-
-            double[] vars = solver.getPtrVariables();
-            for(double var: vars)
-                System.out.println(var);
-
-            solver.deleteLp();
-
-        } catch (LpSolveException e) {
-            throw new RuntimeException(e);
-        }*/
+            for(String vertex: graph.vertexSet()){
+                for(MyWeightedEdge edge: graph.edgesOf(vertex)){
+                    if(vertex.equals(graph.getEdgeSource(edge))) {
+                        writer.write("X_" + vertex + "_" + graph.getEdgeTarget(edge) + "<=" + edge.toString() + ";\n");
+                    }
+                }
+            }
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
     }
 }

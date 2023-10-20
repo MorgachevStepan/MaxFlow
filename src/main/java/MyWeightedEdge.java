@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class MyWeightedEdge extends DefaultWeightedEdge implements Serializable {
     @Override
     public String toString() {
-        return Double.toString(getWeight());
+        int weight = (int)getWeight();
+        return Integer.toString(weight);
     }
 }

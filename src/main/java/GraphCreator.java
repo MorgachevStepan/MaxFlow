@@ -1,4 +1,5 @@
 import org.jgrapht.Graph;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ import java.util.List;
  * @date 11.10.2023 17:17
  */
 public class GraphCreator {
-    private final String SOURCE = "SOURCE";
-    private final String DISTANT = "DISTANT";
+    public static final String SOURCE = "SOURCE";
+    public static final String DISTANT = "DISTANT";
     private final String X1 = "X1";
     private final String X2 = "X2";
     private final String X3 = "X3";
@@ -31,7 +32,8 @@ public class GraphCreator {
         this.render = render;
     }
 
-    public void CreateGraph(Graph<String, MyWeightedEdge> graph) {
+    public Graph<String, MyWeightedEdge>CreateGraph() {
+        Graph<String, MyWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(MyWeightedEdge.class);
         if(isExist()){
             graph = serialization.Deserialize();
         } else {
@@ -40,6 +42,7 @@ public class GraphCreator {
             serialization.Serialize(graph);
             render.RenderGraph(graph);
         }
+        return graph;
     }
 
     private boolean isExist() {
