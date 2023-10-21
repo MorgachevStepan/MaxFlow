@@ -1,3 +1,5 @@
+import lpsolve.LpSolve;
+import lpsolve.LpSolveException;
 import org.jgrapht.Graph;
 
 import java.io.BufferedWriter;
@@ -25,6 +27,15 @@ public class Main {
             constraintsMaker.makeSimpleConstraints();
         }catch (IOException e){
             System.err.println(e.getMessage());
+        }
+
+        try {
+            LpSolve lpSolve = LpSolve.readLp("graph.lp", LpSolve.NORMAL, "MyLPModel");
+            lpSolve.solve();
+            System.out.println(lpSolve.getObjective());
+            lpSolve.deleteLp();
+        } catch (LpSolveException e) {
+            throw new RuntimeException(e);
         }
     }
 }
