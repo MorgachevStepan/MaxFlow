@@ -34,11 +34,14 @@ public class ConstraintsMaker {
     }
 
     public void makeObjectiveFunction() throws IOException {
-        writer.write("max: ");
+        StringBuilder result = new StringBuilder();
+        result.append("max: ");
         for (MyWeightedEdge edge : graph.edgesOf(GraphCreator.SOURCE)) {
-            writer.write("+X_" + GraphCreator.SOURCE + "_" + graph.getEdgeTarget(edge));
+            result.append("+X_").append(GraphCreator.SOURCE).append("_").append(graph.getEdgeTarget(edge));
         }
-        writer.write(";\n\n");
+        result.append(";\n\n");
+        String buffer = result.toString();
+        writer.write(buffer.replace(" +", " "));
     }
 
     public void makeSimpleConstraints() throws IOException {
