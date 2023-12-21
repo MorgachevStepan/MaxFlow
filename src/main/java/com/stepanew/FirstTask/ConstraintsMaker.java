@@ -1,3 +1,5 @@
+package com.stepanew.FirstTask;
+
 import org.jgrapht.Graph;
 
 import java.io.BufferedWriter;
