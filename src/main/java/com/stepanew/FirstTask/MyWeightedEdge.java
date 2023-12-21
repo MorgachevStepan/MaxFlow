@@ -1,3 +1,5 @@
+package com.stepanew.FirstTask;
+
 import org.jgrapht.graph.DefaultWeightedEdge;
 
 import java.io.Serializable;

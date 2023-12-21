@@ -1,3 +1,5 @@
+package com.stepanew.FirstTask;
+
 import org.jgrapht.Graph;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
@@ -26,6 +28,7 @@ public class GraphCreator {
 
     private final Serialization serialization;
     private final Render render;
+    private final String GRAPH_TXT = "src/main/resources/graph.txt";
 
     public GraphCreator(Serialization serialization, Render render) {
         this.serialization = serialization;
@@ -46,7 +49,7 @@ public class GraphCreator {
     }
 
     private boolean isExist() {
-        File file = new File("graph.txt");
+        File file = new File(GRAPH_TXT);
         return file.exists();
     }
 
