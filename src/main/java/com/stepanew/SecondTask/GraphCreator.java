@@ -1,8 +1,8 @@
 package com.stepanew.SecondTask;
 
-import com.stepanew.FirstTask.MyWeightedEdge;
-import com.stepanew.FirstTask.Render;
-import com.stepanew.FirstTask.Serialization;
+import com.stepanew.utils.MyWeightedEdge;
+import com.stepanew.utils.Render;
+import com.stepanew.utils.Serialization;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 

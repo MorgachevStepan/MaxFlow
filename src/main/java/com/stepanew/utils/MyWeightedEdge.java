@@ -1,4 +1,4 @@
-package com.stepanew.FirstTask;
+package com.stepanew.utils;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 

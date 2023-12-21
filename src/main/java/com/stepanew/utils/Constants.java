@@ -11,4 +11,6 @@ public class Constants {
     public final static String GRAPH_LP_SECOND = "src/main/resources/graph_second.lp";
     public final static String GRAPH_PNG_SECOND = "src/main/resources/graph_second.png";
     public final static String GRAPH_TXT_SECOND = "src/main/resources/graph_second.txt";
+    public final static String SOURCE = "SOURCE";
+    public final static String DISTANT = "DISTANT";
 }

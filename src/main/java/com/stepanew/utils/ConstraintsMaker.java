@@ -1,4 +1,4 @@
-package com.stepanew.FirstTask;
+package com.stepanew.utils;
 
 import org.jgrapht.Graph;
 
@@ -27,10 +27,10 @@ public class ConstraintsMaker {
     }
 
     private void makeAdjacencyArrays() {
-        for(MyWeightedEdge myWeightedEdge: graph.edgesOf(GraphCreator.SOURCE)){ //ищем вершины смежные с SOURCE
+        for(MyWeightedEdge myWeightedEdge: graph.edgesOf(Constants.SOURCE)){ //ищем вершины смежные с SOURCE
             vertexWithSource.add(graph.getEdgeTarget(myWeightedEdge));
         }
-        for (MyWeightedEdge myWeightedEdge: graph.edgesOf(GraphCreator.DISTANT)){ //ищем вершины смежные с DISTANT
+        for (MyWeightedEdge myWeightedEdge: graph.edgesOf(Constants.DISTANT)){ //ищем вершины смежные с DISTANT
             vertexWithDistant.add(graph.getEdgeSource(myWeightedEdge));
         }
     }
@@ -38,8 +38,8 @@ public class ConstraintsMaker {
     public void makeObjectiveFunction() throws IOException {
         StringBuilder result = new StringBuilder();
         result.append("max: ");
-        for (MyWeightedEdge edge : graph.edgesOf(GraphCreator.SOURCE)) {
-            result.append("+X_").append(GraphCreator.SOURCE).append("_").append(graph.getEdgeTarget(edge));
+        for (MyWeightedEdge edge : graph.edgesOf(Constants.SOURCE)) {
+            result.append("+X_").append(Constants.SOURCE).append("_").append(graph.getEdgeTarget(edge));
         }
         result.append(";\n\n");
         String buffer = result.toString();
@@ -59,7 +59,7 @@ public class ConstraintsMaker {
     public void makeCompositeConstraints() throws IOException {
         StringBuilder result = null;
         for(String vertex: vertexWithSource){
-            result = new StringBuilder("X_" + GraphCreator.SOURCE + "_" + vertex + "=");
+            result = new StringBuilder("X_" + Constants.SOURCE + "_" + vertex + "=");
             for(MyWeightedEdge myWeightedEdge: graph.edgesOf(vertex)){
                 if(!graph.getEdgeTarget(myWeightedEdge).equals(vertex)) {
                     result.append("+X_").append(vertex).append("_").append(graph.getEdgeTarget(myWeightedEdge)); //создаю
@@ -72,7 +72,7 @@ public class ConstraintsMaker {
         writer.write("\n");
 
         for(String vertex: vertexWithDistant){
-            result = new StringBuilder("X_" + vertex + "_" + GraphCreator.DISTANT + "=");
+            result = new StringBuilder("X_" + vertex + "_" + Constants.DISTANT + "=");
             for (MyWeightedEdge myWeightedEdge: graph.edgesOf(vertex)){
                 if(!graph.getEdgeSource(myWeightedEdge).equals(vertex)){
                     result.append("+X_").append(graph.getEdgeSource(myWeightedEdge)).append("_").append(vertex); //создаю

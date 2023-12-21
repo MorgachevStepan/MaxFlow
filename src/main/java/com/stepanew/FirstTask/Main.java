@@ -1,6 +1,6 @@
 package com.stepanew.FirstTask;
 
-import com.stepanew.utils.Constants;
+import com.stepanew.utils.*;
 import lpsolve.LpSolve;
 import lpsolve.LpSolveException;
 import org.jgrapht.Graph;
