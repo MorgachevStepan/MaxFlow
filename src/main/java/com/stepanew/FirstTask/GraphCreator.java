@@ -44,7 +44,7 @@ public class GraphCreator {
             CreateVertex(graph);
             CreateEdge(graph);
             serialization.Serialize(graph);
-            render.RenderGraph(graph);
+            render.RenderGraph(graph, "");
         }
         return graph;
     }

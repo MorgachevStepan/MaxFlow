@@ -38,9 +38,39 @@ public class GraphCreator {
             CreateVertex(graph);
             CreateEdge(graph);
             serialization.Serialize(graph);
-            render.RenderGraph(graph);
+            render.RenderGraph(graph, "");
         }
         return graph;
+    }
+
+    public void completeGraph(Graph<String, MyWeightedEdge> graph){
+        String source = "SOURCE";
+        String distant = "DISTANT";
+
+        graph.addVertex(source);
+        graph.addVertex(distant);
+
+        for(String s: SOURCE){
+            MyWeightedEdge e = graph.addEdge(source, s);
+            double weight = 0;
+
+            for(MyWeightedEdge myWeightedEdge: graph.edgesOf(s)){
+                weight += Double.parseDouble(myWeightedEdge.toString());
+            }
+
+            graph.setEdgeWeight(e, weight);
+        }
+
+        for(String s: DISTANT){
+            MyWeightedEdge e = graph.addEdge(s, distant);
+            double weight = 0;
+
+            for(MyWeightedEdge myWeightedEdge: graph.edgesOf(s)){
+                weight += Double.parseDouble(myWeightedEdge.toString());
+            }
+
+            graph.setEdgeWeight(e, weight);
+        }
     }
 
     private boolean isExist() {

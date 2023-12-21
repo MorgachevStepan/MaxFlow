@@ -23,13 +23,13 @@ public class Render {
         this.GRAPH_PNG = graphPNG;
     }
 
-    public void RenderGraph(Graph<String, MyWeightedEdge> graph){
+    public void RenderGraph(Graph<String, MyWeightedEdge> graph, String addString){
         JGraphXAdapter graphXAdapter = new JGraphXAdapter(graph);
         mxIGraphLayout layout = new mxCircleLayout(graphXAdapter);
         layout.execute(graphXAdapter.getDefaultParent());
 
         BufferedImage image = mxCellRenderer.createBufferedImage(graphXAdapter, null, 2, Color.WHITE, true, null);
-        File imgFile = new File(GRAPH_PNG);
+        File imgFile = new File(GRAPH_PNG + addString);
         try {
             ImageIO.write(image, "PNG", imgFile);
         } catch (IOException e) {

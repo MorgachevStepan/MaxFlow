@@ -17,5 +17,7 @@ public class Main {
         Serialization serialization = new Serialization(Constants.GRAPH_TXT_SECOND);
         GraphCreator graphCreator = new GraphCreator(serialization, render, Constants.GRAPH_TXT_SECOND);
         graph = graphCreator.CreateGraph();
+        graphCreator.completeGraph(graph);
+        render.RenderGraph(graph, "p.png");
     }
 }
