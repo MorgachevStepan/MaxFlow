@@ -28,11 +28,12 @@ public class GraphCreator {
 
     private final Serialization serialization;
     private final Render render;
-    private final String GRAPH_TXT = "src/main/resources/graph.txt";
+    private final String GRAPH_TXT;
 
-    public GraphCreator(Serialization serialization, Render render) {
+    public GraphCreator(Serialization serialization, Render render, String graphTXT) {
         this.serialization = serialization;
         this.render = render;
+        this.GRAPH_TXT = graphTXT;
     }
 
     public Graph<String, MyWeightedEdge>CreateGraph() {

@@ -9,7 +9,11 @@ import java.io.*;
  * @date 17.10.2023 18:10
  */
 public class Serialization {
-    private final String GRAPH_TXT = "src/main/resources/graph.txt";
+    private final String GRAPH_TXT;
+
+    public Serialization(String graphTXT){
+        this.GRAPH_TXT = graphTXT;
+    }
 
     public void Serialize(Graph<String, MyWeightedEdge> graph){
         FileOutputStream outputStream;

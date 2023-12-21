@@ -17,7 +17,11 @@ import java.io.IOException;
  * @date 17.10.2023 18:05
  */
 public class Render {
-    private final String GRAPH_PNG = "src/main/resources/graph.png";
+    private final String GRAPH_PNG;
+
+    public Render(String graphPNG){
+        this.GRAPH_PNG = graphPNG;
+    }
 
     public void RenderGraph(Graph<String, MyWeightedEdge> graph){
         JGraphXAdapter graphXAdapter = new JGraphXAdapter(graph);

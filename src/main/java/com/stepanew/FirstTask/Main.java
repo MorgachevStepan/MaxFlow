@@ -1,5 +1,6 @@
 package com.stepanew.FirstTask;
 
+import com.stepanew.utils.Constants;
 import lpsolve.LpSolve;
 import lpsolve.LpSolveException;
 import org.jgrapht.Graph;
@@ -14,17 +15,15 @@ import java.io.IOException;
  */
 public class Main {
 
-    private final static String GRAPH_LP = "src/main/resources/graph.lp";
-
     public static void main(String[] args){
         Graph<String, MyWeightedEdge> graph;
-        Render render = new Render();
-        Serialization serialization = new Serialization();
-        GraphCreator graphCreator = new GraphCreator(serialization, render);
+        Render render = new Render(Constants.GRAPH_PNG_FIRST);
+        Serialization serialization = new Serialization(Constants.GRAPH_TXT_FIRST);
+        GraphCreator graphCreator = new GraphCreator(serialization, render, Constants.GRAPH_TXT_FIRST);
         graph = graphCreator.CreateGraph();
 
 
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(GRAPH_LP))) {
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(Constants.GRAPH_LP_FIRST))) {
             ConstraintsMaker constraintsMaker = new ConstraintsMaker(writer, graph);
             constraintsMaker.makeObjectiveFunction();
             constraintsMaker.makeCompositeConstraints();
@@ -34,7 +33,7 @@ public class Main {
         }
 
         try {
-            LpSolve lpSolve = LpSolve.readLp(GRAPH_LP, LpSolve.NORMAL, "MyLPModel");
+            LpSolve lpSolve = LpSolve.readLp(Constants.GRAPH_LP_FIRST, LpSolve.NORMAL, "MyLPModel");
             lpSolve.solve();
             System.out.println(lpSolve.getObjective());
             lpSolve.deleteLp();
