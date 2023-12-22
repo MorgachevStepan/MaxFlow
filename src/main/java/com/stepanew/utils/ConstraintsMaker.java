@@ -14,25 +14,10 @@ import java.util.List;
 public class ConstraintsMaker {
     private final BufferedWriter writer;
     private final Graph<String, MyWeightedEdge> graph;
-    private final List<String> vertexWithSource;
-    private final List<String> vertexWithDistant;
-
 
     public ConstraintsMaker(BufferedWriter writer, Graph<String, MyWeightedEdge> graph) {
         this.writer = writer;
         this.graph = graph;
-        vertexWithSource = new ArrayList<>();
-        vertexWithDistant = new ArrayList<>();
-        makeAdjacencyArrays();
-    }
-
-    private void makeAdjacencyArrays() {
-        for(MyWeightedEdge myWeightedEdge: graph.edgesOf(Constants.SOURCE)){ //ищем вершины смежные с SOURCE
-            vertexWithSource.add(graph.getEdgeTarget(myWeightedEdge));
-        }
-        for (MyWeightedEdge myWeightedEdge: graph.edgesOf(Constants.DISTANT)){ //ищем вершины смежные с DISTANT
-            vertexWithDistant.add(graph.getEdgeSource(myWeightedEdge));
-        }
     }
 
     public void makeObjectiveFunction() throws IOException {
