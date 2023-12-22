@@ -56,32 +56,33 @@ public class ConstraintsMaker {
         }
     }
 
-    public void makeCompositeConstraints() throws IOException {
+    public void makeCompositeConstraints() throws IOException{
         StringBuilder result = null;
-        for(String vertex: vertexWithSource){
-            result = new StringBuilder("X_" + Constants.SOURCE + "_" + vertex + "=");
-            for(MyWeightedEdge myWeightedEdge: graph.edgesOf(vertex)){
-                if(!graph.getEdgeTarget(myWeightedEdge).equals(vertex)) {
-                    result.append("+X_").append(vertex).append("_").append(graph.getEdgeTarget(myWeightedEdge)); //создаю
-                }                                                                                                //первый ряд ограничений
-            }
-            result.append(";\n");
-            String buffer = result.toString();
-            writer.write(buffer.replace("=+", "="));
-        }
-        writer.write("\n");
 
-        for(String vertex: vertexWithDistant){
-            result = new StringBuilder("X_" + vertex + "_" + Constants.DISTANT + "=");
-            for (MyWeightedEdge myWeightedEdge: graph.edgesOf(vertex)){
-                if(!graph.getEdgeSource(myWeightedEdge).equals(vertex)){
-                    result.append("+X_").append(graph.getEdgeSource(myWeightedEdge)).append("_").append(vertex); //создаю
-                }                                                                                                //второй ряж ограничений
+        for(String vertex: graph.vertexSet()){
+            StringBuilder leftPart = null;
+            StringBuilder rightPart = null;
+
+            for(MyWeightedEdge edge: graph.incomingEdgesOf(vertex)){
+                if(leftPart == null){
+                    leftPart = new StringBuilder();
+                }
+                leftPart.append("+X_").append(graph.getEdgeSource(edge)).append("_").append(vertex);
             }
-            result.append(";\n");
-            String buffer = result.toString();
-            writer.write(buffer.replace("=+", "="));
+            for(MyWeightedEdge edge: graph.outgoingEdgesOf(vertex)){
+                if(rightPart == null){
+                    rightPart = new StringBuilder();
+                }
+                rightPart.append("+X_").append(vertex).append("_").append(graph.getEdgeTarget(edge));
+            }
+
+            if(rightPart != null && leftPart != null){
+                result = new StringBuilder(leftPart + "=" + rightPart + ";\n");
+                String buffer = result.toString();
+                writer.write(buffer.replace("=+", "="));
+            }
         }
+
         writer.write("\n");
     }
 }

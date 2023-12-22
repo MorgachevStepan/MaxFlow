@@ -15,10 +15,10 @@ import java.util.List;
  * @date 21.12.2023 13:48
  */
 public class GraphCreator {
-    public static final String[] SOURCE = {"SOURCE1", "SOURCE2"};
-    public static final String[] VERTEX = {"X1", "X2", "X3", "X4", "X5", "X6", "X7", "X8"};
-    public static final String[] DISTANT = {"DISTANT1", "DISTANT2", "DISTANT3", "DISTANT4"
-            , "DISTANT5", "DISTANT6", "DISTANT7", "DISTANT8"};
+    private final String[] SOURCE = {"SOURCE1", "SOURCE2"};
+    private final String[] VERTEX = {"X1", "X2", "X3", "X4"/*, "X5", "X6", "X7", "X8"*/};
+    private final String[] DISTANT = {"DISTANT1", "DISTANT2", "DISTANT3", "DISTANT4"
+            /*, "DISTANT5", "DISTANT6", "DISTANT7", "DISTANT8"*/};
 
     private final Serialization serialization;
     private final Render render;

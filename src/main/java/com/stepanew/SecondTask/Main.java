@@ -30,7 +30,7 @@ public class Main {
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(Constants.GRAPH_LP_SECOND))) {
             ConstraintsMaker constraintsMaker = new ConstraintsMaker(writer, graph);
             constraintsMaker.makeObjectiveFunction();
-            //constraintsMaker.makeCompositeConstraints();
+            constraintsMaker.makeCompositeConstraints();
             constraintsMaker.makeSimpleConstraints();
         }catch (IOException e){
             System.err.println(e.getMessage());
